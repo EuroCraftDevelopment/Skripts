@@ -1,0 +1,30 @@
+command /redeem <text>:
+	usage: /redeeem [code]
+	trigger:
+		if {euroredeem.%arg-1%.useamount} is more or equal to {euroredeem.%arg-1%.maxuse}:
+			send "&1[EuroRedeem]&f This code has been used the maximum amount!"
+			stop
+		if {euroredeem.%player%.%arg-1%.claimed} is true:
+			send "&1[EuroRedeem]&f You already claimed this code!"
+			stop
+		else:
+			if {euroredeem.%arg-1%.item} is not set:
+				send "&1[EuroRedeem]&f The code that you have entered is invalid!"
+				stop
+			else:
+				give player {euroredeem.%arg-1%.amount} of {euroredeem.%arg-1%.item}
+				set {euroredeem.%player%.%arg-1%.claimed} to true
+				set {euroredeem.%arg-1%.useamount} to {euroredeem.%arg-1%.useamount} + 1
+				send "&1[EuroRedeem]&f Successfully redeemed the code!"
+				stop
+				
+command /codecreate <text> <number> <item> <number>:
+	usage: /codecreate code amount item maxuse
+	permission: euroredeem.create
+	trigger:
+		set {euroredeem.%arg-1%.item} to arg-3
+		set {euroredeem.%arg-1%.amount} to arg-2
+		set {euroredeem.%arg-1%.maxuse} to arg-4
+		set {euroredeem.%arg-1%.useamount} to 0
+		send "&1[EuroRedeem]&f Successfully created the code %arg-1%&f that will give %arg-2%&f of %arg-3%&f and can be used %arg-4%&f times!"
+
