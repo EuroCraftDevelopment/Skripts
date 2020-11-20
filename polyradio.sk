@@ -1,0 +1,63 @@
+command /polyradio [<text>] [<number>]:
+	description: Help info about Polyradio
+	trigger:
+		if arg-1 is "help":
+			send "&4[PolyRadio]" to player
+			send "&2 PolyRadio is a skript that allows people to talk privately on same frequency."
+			send "&2 do /polyradio tune [number] to tune into a frequency." to player
+			send "&2 do /polyradio encode [number] to change your encoder number." to player
+			send "&2 do /polyradio listen 1/0 to listen or stop listening to frequency." to player
+			send "&2 do /polyradio speak 1/0 to start or stop sending messages."
+			send ""
+			send "&2 v1.2 by ColonelKai"
+		else if arg-1 is "tune":
+			if arg-2 is more than 1200:
+				send "&4[PolyRadio]&2 Your frequency needs to be less than 1200"
+			else if arg-2 is less than 0:
+				send "&4[PolyRadio]&2 Your frequency needs to be more than 0"
+			else:
+				set {%player%.polyradio.tune} to arg-2
+				send "&4[PolyRadio]&2 Your radio has been tuned to &1%arg-2%"
+		else if arg-1 is "listen":
+			if arg-2 is 1:
+				send "&4[PolyRadio]&2 You are now listening to %{%player%.polyradio.tune}%" to player
+				set {%player%.polyradio.listen} to "true"
+			else if arg-2 is 0:
+				send "&4[PolyRadio]&2 You are no longer listening to %{%player%.polyradio.tune}%" to player
+				set {%player%.polyradio.listen} to "false"
+		
+		else if arg-1 is "encode":
+			if arg-2 is more than 1200:
+				send "&4[PolyRadio]&2 Your encoder needs to be less than 1200"
+			else if arg-2 is less than 0:
+				send "&4[PolyRadio]&2 Your encoder needs to be more than 0"
+			else:
+				set {%player%.polyradio.encoder} to arg-2
+				send "&4[PolyRadio]&2 Your radio has been encoded to &1%arg-2%"
+				
+		else if arg-1 is "speak":
+			if arg-2 is 1:
+				send "&4[PolyRadio]&2 You are now talking to %{%player%.polyradio.tune}%" to player
+				set {%player%.polyradio.speak} to "true"
+			else if arg-2 is 0:
+				send "&4[PolyRadio]&2 You are bo longer talking to %{%player%.polyradio.tune}%" to player
+				set {%player%.polyradio.speak} to "false"
+				
+
+on chat:
+	if {%player%.polyradio.speak} is "true":
+		cancel event
+		loop all players:
+			if {%loop-player%.polyradio.listen} is "true":
+				if {%loop-player%.polyradio.tune} is {%player%.polyradio.tune}:
+					if {%loop-player%.polyradio.encoder} is {%player%.polyradio.encoder}:
+						set {_tune} to {%player%.polyradio.tune}
+						send "&4[Freq. %{_tune}%&4]&1[%player%&1] &2%message%" to loop-player
+					else:
+						set {_tune} to {%player%.polyradio.tune}
+						send "&4[Freq. %{_tune}%&4]&1[%player%&1] &2[encoded gibberish]" to loop-player
+					
+					
+					
+					
+					

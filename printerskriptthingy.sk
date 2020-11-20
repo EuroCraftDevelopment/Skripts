@@ -1,0 +1,37 @@
+# PrinterSkriptThingy v1.0
+# by ColonelKai
+# contacct via EMAIL : colonelkai@hotmail.com
+# licenced under CC BY-SA 3.0
+
+#       /cprinter_register currency password item 
+command /cprinter_register <text> <text> <item>:
+	permission: cprinter.register
+	trigger:
+		set {currency.%arg-1%.password} to argument 2
+		set {currency.%arg-1%.item} to arg-3
+		send "&2[CPrinter]&e You created the currency &f%arg-1% &ewith the password &f%arg-2% &eand item &f%arg-3%&f." to player
+		
+#       /cprinter currency password amount
+command /cprinter <text> <text> <integer>:
+	trigger:
+		if {currency.%arg-1%.item} is not set:
+			send "&2[CPrinter]&e The currency you are trying to specify does not exist.."
+			stop
+		else:
+			if player has arg-3 of {currency.%arg-1%.item}:
+				if arg-2 is not {currency.%arg-1%.password}:
+					send "&2[CPrinter]&e Wrong password."
+					stop
+				else:
+					#yes.
+					remove arg-3 of {currency.%arg-1%.item} from player's inventory
+					give player arg-3 of {currency.%arg-1%.item} named "&1%arg-1%" with lore "&fPrinted by %player%"
+					
+			else:
+				send "&2[CPrinter]&e You need to have enough &f%{currency.%arg-1%.item}%&e to print this currency."
+				stop
+			
+
+					
+
+		

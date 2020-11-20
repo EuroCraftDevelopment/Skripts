@@ -1,0 +1,6 @@
+on rightclick on sand holding bone meal:
+	set {_loc} to location at X-location of event-block, Y-location of event-block + 1, Z-location of event-block in world of event-block
+	if block at {_loc} is water:
+		chance of 25%:
+			wait 2 ticks
+			set block at {_loc} to sea pickles

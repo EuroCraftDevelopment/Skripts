@@ -1,0 +1,3 @@
+on player portal:
+	cancel event
+	message "Portals are temporarily disabled, sorry :( - Kai" to player
