@@ -1,10 +1,10 @@
-command /eurodebug <text> <text> <text>
-    permission: eurodebug.admin
-    usage: /eurodebug readvar/writevar arg-3
-    trigger:
-        if arg-1 is "readvar":
-            send "{%arg-2%}" to player
-            stop
-        if arg-1 is "writevar":
-            set {%arg-2%} to arg-3
-            send "{%arg-2%} has been set to %arg-3%"
+command /eurodebug <text> <text> <text>:
+	permission: eurodebug.admin
+	usage: /eurodebug readvar/writevar arg-3
+	trigger:
+		if arg-1 is "readvar":
+			send "%{%arg-2%}%" to player
+			stop
+		if arg-1 is "writevar":
+			set {%arg-2%} to arg-3
+			send "%{%arg-2%}% has been set to %arg-3%"
