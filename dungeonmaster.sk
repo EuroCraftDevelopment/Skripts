@@ -2,6 +2,15 @@
 # written for the 100 player event - Dungeon Hunt
 # contact at -> colonelkai@hotmail.com
 
+#activate or deactivate the debug mode for DMDEBUG.
+command /dmdebug <text>
+	permission: dm.debug
+	trigger:
+		if arg-1 is "true":
+			set {dm.debug} to true
+		if arg-1 is "false":
+			set {dm.debug} to false
+
 #command to get people out of dungeon.
 #the args are xyz coords of the center block of the 3x3x3 block that people will be teleported to surface.
 #if you want to teleport people outside it, just do multiple calls of this command.
@@ -20,4 +29,14 @@ command /dmgetout <number> <number> <number>:
 		{_tunneltopy} = 0
 		{_tunneltopz} = 0
 
-		
+		set x coordinates of {_location} to {_xcord}
+		set y coordinates of {_location} to {_ycord}
+		set z coordinates of {_location} to {_zcord}
+
+		loop all players:
+			loop all blocks in radius 3 around loop-player:
+				if loop-block is at {_location}:
+					add player to {dmgetoutplayers::*}
+					if {dm.debug} is true:
+						broadcast "DMDEBUG --- Player added to DMGETOUTPLAYERS array: %loop-player%"
+					exit 1 loop
