@@ -34,6 +34,8 @@ command /dmgetout <number> <number> <number>:
 		set z coordinates of {_location} to {_zcord}
 
 		loop all players:
+			if {dm.debug} is true:
+				broadcast "DMDEBUG --- Checking player to add to DMGETOUTPLAYERS: %loop-player%"
 			loop all blocks in radius 3 around loop-player:
 				if loop-block's location is {_location}:
 					add player to {_dmgetoutplayers::*}
