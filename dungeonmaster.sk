@@ -1,2 +1,23 @@
 # written by ColonelKai - Head developer of EuroCraft
+# written for the 100 player event - Dungeon Hunt
 # contact at -> colonelkai@hotmail.com
+
+#command to get people out of dungeon.
+#the args are xyz coords of the center block of the 3x3x3 block that people will be teleported to surface.
+#if you want to teleport people outside it, just do multiple calls of this command.
+#MAKE SURE NOT TO OVERLAP THE AREAS. IT MIGHT CAUSE A BUG.
+command /dmgetout <number> <number> <number>:
+	permission: dm.getout
+	trigger:
+		#save temporary variables
+		{_xcord} = arg-1
+		{_ycord} = arg-2
+		{_zcord} = arg-3
+		{_tunnelbottomx} = 0 # TODO: set later
+		{_tunnelbottomy} = 0
+		{_tunnelbottomz} = 0
+		{_tunneltopx} = 0
+		{_tunneltopy} = 0
+		{_tunneltopz} = 0
+
+		
