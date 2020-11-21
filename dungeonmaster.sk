@@ -3,13 +3,11 @@
 # contact at -> colonelkai@hotmail.com
 
 #activate or deactivate the debug mode for DMDEBUG.
-command /dmdebug <text>:
-	permission: dm.debug
+command /dmdebug <boolean>:
+	permission: dm.debugchange
 	trigger:
-		if arg-1 is "true":
-			set {dm.debug} to true
-		if arg-1 is "false":
-			set {dm.debug} to false
+		set {dm.debug} to arg-1
+		broadcast "DMDEBUG --- DMDEBUG status change - dm.debug changed to %{dm.debug}% with the type %type of {dm.debug}%"
 
 #command to get people out of dungeon.
 #the args are xyz coords of the center block of the 3x3x3 block that people will be teleported to surface.
@@ -29,9 +27,15 @@ command /dmgetout <number> <number> <number>:
 		{_tunneltopy} = 0
 		{_tunneltopz} = 0
 
+		if {dm.debug} is true:
+			broadcast "DMDEBUG --- DMGETOUT set initVars complete"
+
 		set x coordinates of {_location} to {_xcord}
 		set y coordinates of {_location} to {_ycord}
 		set z coordinates of {_location} to {_zcord}
+
+		if {dm.debug} is true:
+			broadcast "DMDEBUG --- DMGETOUT set targetloc complete"
 
 		loop all players:
 			if {dm.debug} is true:
