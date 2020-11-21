@@ -16,32 +16,45 @@ command /dmdebug <boolean>:
 command /dmgetout <number> <number> <number>:
 	permission: dm.getout
 	trigger:
+		
+		if {dm.debug} is true:
+			broadcast "DMDEBUG --- DMGETOUT init"
+		
 		#save temporary variables
-		{_xcord} = arg-1
-		{_ycord} = arg-2
-		{_zcord} = arg-3
-		{_tunnelbottomx} = 0 # TODO: set later
-		{_tunnelbottomy} = 0
-		{_tunnelbottomz} = 0
-		{_tunneltopx} = 0
-		{_tunneltopy} = 0
-		{_tunneltopz} = 0
+		set {_xcord} to arg-1
+		set {_ycord} to arg-2
+		set {_zcord} to arg-3
+		set {_tunnelbottomx} to 0
+		set {_tunnelbottomy} to 0
+		set {_tunnelbottomz} to 0
+		set {_tunneltopx} to 0
+		set {_tunneltopy} to 0
+		set {_tunneltopz} to 0
 
 		if {dm.debug} is true:
 			broadcast "DMDEBUG --- DMGETOUT set initVars complete"
 
+		set {_player} to random element of all players
+		set {_location} to {_player}'s position
+
+		if {dm.debug} is true:
+			broadcast "DMDEBUG --- DMGETOUT _targetloc _location gen random player = %{_player}%"
+
 		set x coordinates of {_location} to {_xcord}
 		set y coordinates of {_location} to {_ycord}
 		set z coordinates of {_location} to {_zcord}
+		set {_targblock} to block at {_location}
 
 		if {dm.debug} is true:
 			broadcast "DMDEBUG --- DMGETOUT set targetloc complete"
+			broadcast "DMDEBUG --- DMGETOUT targetloc - _location = %{_location}%"
+			broadcast "DMDEBUG --- DMGETOUT targetloc - _targblock = %{_targblock}%"
 
 		loop all players:
 			if {dm.debug} is true:
 				broadcast "DMDEBUG --- Checking player to add to DMGETOUTPLAYERS: %loop-player%"
 			loop all blocks in radius 3 around loop-player:
-				if loop-block's location is {_location}:
+				if loop-block's location is equal to location of {_targblock}:
 					add player to {_dmgetoutplayers::*}
 					if {dm.debug} is true:
 						broadcast "DMDEBUG --- Player added to DMGETOUTPLAYERS array: %loop-player%"
