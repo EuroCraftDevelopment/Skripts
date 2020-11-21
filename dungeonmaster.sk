@@ -3,7 +3,7 @@
 # contact at -> colonelkai@hotmail.com
 
 #activate or deactivate the debug mode for DMDEBUG.
-command /dmdebug <text>
+command /dmdebug <text>:
 	permission: dm.debug
 	trigger:
 		if arg-1 is "true":
@@ -35,7 +35,7 @@ command /dmgetout <number> <number> <number>:
 
 		loop all players:
 			loop all blocks in radius 3 around loop-player:
-				if loop-block is at {_location}:
+				if loop-block's location is {_location}:
 					add player to {_dmgetoutplayers::*}
 					if {dm.debug} is true:
 						broadcast "DMDEBUG --- Player added to DMGETOUTPLAYERS array: %loop-player%"
