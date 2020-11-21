@@ -36,7 +36,7 @@ command /dmgetout <number> <number> <number>:
 		loop all players:
 			loop all blocks in radius 3 around loop-player:
 				if loop-block is at {_location}:
-					add player to {dmgetoutplayers::*}
+					add player to {_dmgetoutplayers::*}
 					if {dm.debug} is true:
 						broadcast "DMDEBUG --- Player added to DMGETOUTPLAYERS array: %loop-player%"
 					exit 1 loop
