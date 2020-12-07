@@ -1,0 +1,17 @@
+command /stp <player>:
+	usage:/stp [Name]
+	trigger:
+#If the TP has been used send that you have used it.
+		if {tpskript.%player%.used} is true:
+			send "You have used your start TP!"
+			stop
+#Otherwise, first check if the player is online, if it is then TP and set has used TP to true. If the target is not online send this to the player
+		else:
+			if arg-1 is online:
+				teleport  the player to arg-1
+				send "You have been tped to your destination!"
+				set {tpskript.%player%.used} to true
+				stop
+			else:
+				send "The target player is not online / does not exist!" 
+				stop
