@@ -1,7 +1,6 @@
 # PrinterSkriptThingy v1.0
 # by ColonelKai
 # contacct via EMAIL : colonelkai@hotmail.com
-# licenced under CC BY-SA 3.0
 
 #       /cprinter_register currency password item 
 command /cprinter_register <text> <text> <item>:
